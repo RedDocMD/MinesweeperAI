@@ -167,11 +167,12 @@ public class MinesweeperFrame extends JFrame {
 
     public void announceGameEnd() {
         var state = data.getGameState();
+        var user = aiPlaying ? "AI has " : "You have ";
         if (state == MinesweeperBoardData.GameState.WON)
-            JOptionPane.showMessageDialog(this, "You have won!",
+            JOptionPane.showMessageDialog(this, user + "won!",
                     "Game over", JOptionPane.INFORMATION_MESSAGE);
         else if (state == MinesweeperBoardData.GameState.LOST)
-            JOptionPane.showMessageDialog(this, "You have lost!",
+            JOptionPane.showMessageDialog(this, user + "lost!",
                     "Game over", JOptionPane.INFORMATION_MESSAGE);
     }
 
