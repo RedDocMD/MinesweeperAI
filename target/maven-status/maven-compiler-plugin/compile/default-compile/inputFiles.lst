@@ -3,6 +3,7 @@
 /home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/gui/MinesweeperFrame.java
 /home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/data/SimulationResult.java
 /home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/data/Position.java
+/home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/gui/LevelChooserDialog.java
 /home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/gui/MinesweeperPanel.java
 /home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/ai/MinesweeperAI.java
 /home/dm/IdeaProjects/MinesweeperAI/src/main/java/com/deep/minesweeper/gui/Cell.java
