@@ -1,6 +1,5 @@
 package com.deep.minesweeper;
 
-import com.deep.minesweeper.data.GameLevel;
 import com.deep.minesweeper.data.MinesweeperBoardData;
 import com.deep.minesweeper.gui.LevelChooserDialog;
 import com.deep.minesweeper.gui.MinesweeperFrame;

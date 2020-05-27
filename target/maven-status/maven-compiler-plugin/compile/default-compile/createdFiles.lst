@@ -2,6 +2,7 @@ com/deep/minesweeper/gui/LevelChooserDialog.class
 com/deep/minesweeper/data/Position.class
 com/deep/minesweeper/data/GameLevel.class
 com/deep/minesweeper/gui/LevelChooserDialog$1.class
+com/deep/minesweeper/gui/SimulationResultDialog.class
 com/deep/minesweeper/gui/Cell.class
 com/deep/minesweeper/gui/MinesweeperPanel$1.class
 com/deep/minesweeper/gui/LevelChooserDialog$SelectorState.class
