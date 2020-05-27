@@ -10,9 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MinesweeperFrame extends JFrame {
+    private static final String ICON_PATH = "/images/minesweeper.png";
     private final MinesweeperPanel board;
     private final MinesweeperBoardData data;
     private final MinesweeperAI ai;
+    private final SimulationResultDialog resultDialog;
     private final JPanel humanPanel;
     private final JPanel aiPanel;
     private final JPanel buttonPanel;
@@ -25,9 +27,6 @@ public class MinesweeperFrame extends JFrame {
     private final JLabel columnsLabel;
     private final JLabel minesLabel;
     private final JLabel flaggedLabel;
-
-    private static final String ICON_PATH = "/images/minesweeper.png";
-
     private boolean aiPlaying;
     private boolean humanPlaying;
 
@@ -36,6 +35,7 @@ public class MinesweeperFrame extends JFrame {
         this.board = new MinesweeperPanel(data, this);
         this.data = data;
         this.ai = new MinesweeperAI(data);
+        this.resultDialog = new SimulationResultDialog(this, false);
         this.humanPanel = new JPanel();
         this.aiPanel = new JPanel();
         this.buttonPanel = new JPanel();
@@ -51,10 +51,6 @@ public class MinesweeperFrame extends JFrame {
         this.humanPlaying = false;
         this.aiPlaying = false;
         initComponents();
-    }
-
-    public boolean isAiPlaying() {
-        return aiPlaying;
     }
 
     public boolean isHumanPlaying() {
@@ -88,11 +84,19 @@ public class MinesweeperFrame extends JFrame {
         });
 
         simulateButton.addActionListener(e -> {
+            var level = Logger.getGlobal().getLevel();
             Logger.getGlobal().setLevel(Level.OFF);
             final int DEFAULT_GAMES = 10;
-            var result = runSimulation(DEFAULT_GAMES);
+            var ans = JOptionPane.showInputDialog(this,
+                    "Enter the number of games to simulate:", "Simulate", JOptionPane.INFORMATION_MESSAGE);
+            var games = DEFAULT_GAMES;
+            try {
+                games = Integer.parseInt(ans);
+            } catch (NumberFormatException ignored) {
+            }
+            var result = runSimulation(games);
             showResult(result);
-            Logger.getGlobal().setLevel(Level.INFO);
+            Logger.getGlobal().setLevel(level);
         });
 
         aiPanel.setLayout(new FlowLayout());
@@ -139,6 +143,7 @@ public class MinesweeperFrame extends JFrame {
     private SimulationResult runSimulation(int games) {
         int roundCount = 0;
         int winCount = 0;
+        var startTime = System.nanoTime();
         for (var i = 0; i < games; i++) {
             while (!data.isGameEnded()) {
                 ++roundCount;
@@ -147,11 +152,15 @@ public class MinesweeperFrame extends JFrame {
             if (data.getGameState() == MinesweeperBoardData.GameState.WON) ++winCount;
             resetGame();
         }
-        return new SimulationResult(winCount, games, (double) roundCount / (double) games);
+        var endTime = System.nanoTime();
+        return new SimulationResult(winCount,
+                games,
+                (double) roundCount / (double) games,
+                endTime - startTime);
     }
 
     private void showResult(SimulationResult result) {
-        System.out.println(result.toString());
+        resultDialog.showResult(result);
     }
 
     private void aiMakeMove() {

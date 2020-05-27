@@ -9,18 +9,10 @@ import java.util.logging.Logger;
 
 public class LevelChooserDialog extends javax.swing.JDialog {
 
-    private JRadioButton beginnerRadioButton;
-    private JButton cancelButton;
-    private ButtonGroup choiceButtonGroup;
     private JLabel columnLabel;
     private JSpinner columnSpinner;
-    private JRadioButton customRadioButton;
-    private JRadioButton expertRadioButton;
-    private JLabel instructionLabel;
-    private JRadioButton intermediateRadioButton;
     private JSpinner mineSpinner;
     private JLabel minesLabel;
-    private JButton okButton;
     private JLabel rowLabel;
     private JSpinner rowSpinner;
     private SelectorState selectorState;
@@ -53,14 +45,14 @@ public class LevelChooserDialog extends javax.swing.JDialog {
 
     private void initComponents() {
 
-        choiceButtonGroup = new ButtonGroup();
-        okButton = new JButton();
-        cancelButton = new JButton();
-        instructionLabel = new JLabel();
-        beginnerRadioButton = new JRadioButton();
-        intermediateRadioButton = new JRadioButton();
-        expertRadioButton = new JRadioButton();
-        customRadioButton = new JRadioButton();
+        ButtonGroup choiceButtonGroup = new ButtonGroup();
+        JButton okButton = new JButton();
+        JButton cancelButton = new JButton();
+        JLabel instructionLabel = new JLabel();
+        JRadioButton beginnerRadioButton = new JRadioButton();
+        JRadioButton intermediateRadioButton = new JRadioButton();
+        JRadioButton expertRadioButton = new JRadioButton();
+        JRadioButton customRadioButton = new JRadioButton();
         rowLabel = new JLabel();
         columnSpinner = new JSpinner();
         columnLabel = new JLabel();
