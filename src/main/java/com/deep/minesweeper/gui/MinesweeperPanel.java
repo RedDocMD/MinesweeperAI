@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.util.logging.Logger;
 
 public class MinesweeperPanel extends JPanel {
+
+    private static final long serialVersionUID = -3997358506258105204L;
     private final MinesweeperBoardData boardData;
     private final MinesweeperFrame parent;
     private final Cell[][] cells;

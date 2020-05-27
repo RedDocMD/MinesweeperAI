@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MinesweeperFrame extends JFrame {
+
+    private static final long serialVersionUID = -5399265131477804304L;
     private static final String ICON_PATH = "/images/minesweeper.png";
     private final MinesweeperPanel board;
     private final MinesweeperBoardData data;
@@ -87,8 +89,8 @@ public class MinesweeperFrame extends JFrame {
             var level = Logger.getGlobal().getLevel();
             Logger.getGlobal().setLevel(Level.OFF);
             final int DEFAULT_GAMES = 10;
-            var ans = JOptionPane.showInputDialog(this,
-                    "Enter the number of games to simulate:", "Simulate", JOptionPane.INFORMATION_MESSAGE);
+            var ans = JOptionPane.showInputDialog(this, "Enter the number of games to simulate:", "Simulate",
+                    JOptionPane.INFORMATION_MESSAGE);
             var games = DEFAULT_GAMES;
             try {
                 games = Integer.parseInt(ans);
@@ -149,14 +151,12 @@ public class MinesweeperFrame extends JFrame {
                 ++roundCount;
                 ai.makeMove();
             }
-            if (data.getGameState() == MinesweeperBoardData.GameState.WON) ++winCount;
+            if (data.getGameState() == MinesweeperBoardData.GameState.WON)
+                ++winCount;
             resetGame();
         }
         var endTime = System.nanoTime();
-        return new SimulationResult(winCount,
-                games,
-                (double) roundCount / (double) games,
-                endTime - startTime);
+        return new SimulationResult(winCount, games, (double) roundCount / (double) games, endTime - startTime);
     }
 
     private void showResult(SimulationResult result) {
@@ -178,15 +178,13 @@ public class MinesweeperFrame extends JFrame {
         var state = data.getGameState();
         var user = aiPlaying ? "AI has " : "You have ";
         if (state == MinesweeperBoardData.GameState.WON)
-            JOptionPane.showMessageDialog(this, user + "won!",
-                    "Game over", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, user + "won!", "Game over", JOptionPane.INFORMATION_MESSAGE);
         else if (state == MinesweeperBoardData.GameState.LOST)
-            JOptionPane.showMessageDialog(this, user + "lost!",
-                    "Game over", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, user + "lost!", "Game over", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void announceResetGame() {
-        JOptionPane.showMessageDialog(this, "The game is over!\nPress the Reset button to start again",
-                "Game over", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "The game is over!\nPress the Reset button to start again", "Game over",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }

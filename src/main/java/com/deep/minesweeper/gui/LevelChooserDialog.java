@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class LevelChooserDialog extends javax.swing.JDialog {
 
+    private static final long serialVersionUID = -7572292633836634992L;
     private JLabel columnLabel;
     private JSpinner columnSpinner;
     private JSpinner mineSpinner;
@@ -34,7 +35,8 @@ public class LevelChooserDialog extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException ex) {
             Logger.getGlobal().severe(ex.toString());
         }
 
@@ -110,84 +112,88 @@ public class LevelChooserDialog extends javax.swing.JDialog {
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(okButton)
-                                        .addGap(4, 4, 4)
-                                        .addComponent(cancelButton))
-                                .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addContainerGap()
-                                                        .addComponent(instructionLabel))
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addGap(43, 43, 43)
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                .addComponent(expertRadioButton)
-                                                                .addComponent(intermediateRadioButton)
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                                .addGroup(layout.createSequentialGroup()
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout
+                .createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                        GroupLayout.Alignment.TRAILING,
+                        layout.createSequentialGroup().addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(okButton).addGap(4, 4, 4).addComponent(cancelButton))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup().addContainerGap()
+                                                .addComponent(instructionLabel))
+                                        .addGroup(layout.createSequentialGroup().addGap(43, 43, 43)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(expertRadioButton)
+                                                        .addComponent(intermediateRadioButton)
+                                                        .addGroup(layout
+                                                                .createSequentialGroup().addGroup(layout
+                                                                        .createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(
+                                                                                layout.createSequentialGroup()
                                                                                         .addComponent(customRadioButton)
                                                                                         .addGap(26, 26, 26))
-                                                                                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                                                .addComponent(columnLabel)
-                                                                                                .addComponent(rowLabel)
-                                                                                                .addComponent(minesLabel))
-                                                                                        .addGap(18, 18, 18)))
-                                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(rowSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(mineSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(columnSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))))
-                                                .addGroup(layout.createSequentialGroup()
-                                                        .addGap(43, 43, 43)
-                                                        .addComponent(beginnerRadioButton)))
-                                        .addGap(0, 80, Short.MAX_VALUE)))
-                        .addContainerGap())
-        );
+                                                                        .addGroup(GroupLayout.Alignment.TRAILING, layout
+                                                                                .createSequentialGroup()
+                                                                                .addGroup(layout.createParallelGroup(
+                                                                                        GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(columnLabel)
+                                                                                        .addComponent(rowLabel)
+                                                                                        .addComponent(minesLabel))
+                                                                                .addGap(18, 18, 18)))
+                                                                .addGroup(layout
+                                                                        .createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(rowSpinner,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(
+                                                                                mineSpinner, GroupLayout.PREFERRED_SIZE,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(columnSpinner,
+                                                                                GroupLayout.PREFERRED_SIZE, 60,
+                                                                                GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(layout.createSequentialGroup().addGap(43, 43, 43)
+                                                .addComponent(beginnerRadioButton)))
+                                .addGap(0, 80, Short.MAX_VALUE)))
+                .addContainerGap()));
 
         layout.linkSize(SwingConstants.HORIZONTAL, cancelButton, okButton);
 
         layout.linkSize(SwingConstants.HORIZONTAL, columnSpinner, mineSpinner, rowSpinner);
 
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(instructionLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(beginnerRadioButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(intermediateRadioButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(expertRadioButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(customRadioButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                GroupLayout.Alignment.TRAILING,
+                layout.createSequentialGroup().addContainerGap().addComponent(instructionLabel).addGap(18, 18, 18)
+                        .addComponent(beginnerRadioButton).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(intermediateRadioButton).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(expertRadioButton).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(customRadioButton).addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(columnLabel)
-                                                .addComponent(columnSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(columnLabel).addComponent(columnSpinner,
+                                                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                        GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(okButton)
-                                                .addComponent(cancelButton))
+                                                .addComponent(okButton).addComponent(cancelButton))
                                         .addContainerGap())
-                                .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 41, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup().addGap(0, 41, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(rowSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(rowSpinner, GroupLayout.PREFERRED_SIZE,
+                                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(rowLabel))
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(mineSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(mineSpinner, GroupLayout.PREFERRED_SIZE,
+                                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(minesLabel))
-                                        .addGap(78, 78, 78))))
-        );
+                                        .addGap(78, 78, 78)))));
 
         beginnerRadioButton.getAccessibleContext().setAccessibleDescription("");
 
@@ -199,10 +205,8 @@ public class LevelChooserDialog extends javax.swing.JDialog {
             case BEGINNER -> level = GameLevel.BEGINNER;
             case INTERMEDIATE -> level = GameLevel.INTERMEDIATE;
             case EXPERT -> level = GameLevel.EXPERT;
-            case CUSTOM -> level = new GameLevel((Integer) rowSpinner.getValue(),
-                    (Integer) columnSpinner.getValue(),
-                    (Integer) mineSpinner.getValue(),
-                    "Custom");
+            case CUSTOM -> level = new GameLevel((Integer) rowSpinner.getValue(), (Integer) columnSpinner.getValue(),
+                    (Integer) mineSpinner.getValue(), "Custom");
         }
         setVisible(false);
     }
@@ -245,4 +249,3 @@ public class LevelChooserDialog extends javax.swing.JDialog {
     }
 
 }
-

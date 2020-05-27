@@ -8,6 +8,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class Cell extends JPanel {
+
+    private static final long serialVersionUID = -2016279651477232739L;
     private static final int DEFAULT_WIDTH = 30;
     private static final int DEFAULT_HEIGHT = 30;
     private static final Border COVERED_BORDER = BorderFactory.createRaisedBevelBorder();
