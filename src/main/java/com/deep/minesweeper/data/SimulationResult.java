@@ -31,11 +31,11 @@ public class SimulationResult {
 
     @Override
     public String toString() {
-        return "SimulationResult{" +
-                "gamesWon=" + gamesWon +
-                ", gamesPlayed=" + gamesPlayed +
-                ", averageRoundCount=" + averageRoundCount +
-                ", time=" + time / (gamesPlayed * 1000000) + "ms (per round)" +
-                '}';
+        return "SimulationResult{\n" +
+                "gamesWon = " + gamesWon +
+                ",\n gamesPlayed = " + gamesPlayed +
+                ",\n averageRoundCount = " + averageRoundCount +
+                ",\n time = " + time / (gamesPlayed * 1000000) + "ms (per round)" +
+                "\n}";
     }
 }

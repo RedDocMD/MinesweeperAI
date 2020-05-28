@@ -160,7 +160,7 @@ public class MinesweeperFrame extends JFrame {
     }
 
     private void showResult(SimulationResult result) {
-        resultDialog.showResult(result);
+        System.out.println(result.toString());
     }
 
     private void aiMakeMove() {
