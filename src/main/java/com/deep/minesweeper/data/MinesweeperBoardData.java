@@ -223,6 +223,19 @@ public class MinesweeperBoardData {
         }
     }
 
+    public int getPoint() {
+        final int UNCOVERED_EMPTY_POINT = 1;
+        final int FLAGGED_MINE_POINT = 1000;
+        var points = 0;
+        for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < columns; j++) {
+                if (board[i][j] == Element.UNCOVERED_EMPTY) points += UNCOVERED_EMPTY_POINT;
+                else if (board[i][j] == Element.FLAGGED && counterBoard[i][j] == -1) points += FLAGGED_MINE_POINT;
+            }
+        }
+        return points;
+    }
+
     @Override
     public String toString() {
         var out = new StringBuilder();

@@ -143,20 +143,34 @@ public class MinesweeperFrame extends JFrame {
     }
 
     private SimulationResult runSimulation(int games) {
+        final int ACCEPTABLE_ROUND_COUNT = 4;
         int roundCount = 0;
         int winCount = 0;
-        var startTime = System.nanoTime();
-        for (var i = 0; i < games; i++) {
+        int points = 0;
+        long time = 0;
+
+        for (var i = 0; i < games;) {
+            int rounds = 0;
+            var startTime = System.nanoTime();
             while (!data.isGameEnded()) {
-                ++roundCount;
+                ++rounds;
                 ai.makeMove();
+            }
+            var endTime = System.nanoTime();
+            var currPoints = data.getPoint();
+            if (rounds <= ACCEPTABLE_ROUND_COUNT && currPoints <= 2500) {
+                resetGame();
+                continue;
             }
             if (data.getGameState() == MinesweeperBoardData.GameState.WON)
                 ++winCount;
+            roundCount += rounds;
+            points += currPoints;
+            time += endTime - startTime;
             resetGame();
+            ++i;
         }
-        var endTime = System.nanoTime();
-        return new SimulationResult(winCount, games, (double) roundCount / (double) games, endTime - startTime);
+        return new SimulationResult(winCount, games, (double) roundCount / (double) games, time, points / games);
     }
 
     private void showResult(SimulationResult result) {
