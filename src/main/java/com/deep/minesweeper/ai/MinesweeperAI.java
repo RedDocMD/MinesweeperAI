@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class MinesweeperAI {
-    private static final int INFERENCE_CYCLE_LIMIT = 5;
+    private static final int INFERENCE_CYCLE_LIMIT = 15;
     private final MinesweeperBoardData board;
     private final List<Sentence> sentences;
     private final Set<Position> knownMines;
@@ -49,7 +49,11 @@ public class MinesweeperAI {
         if (move != null) {
             board.uncoverCell(move);
             for (var i = 0; i < INFERENCE_CYCLE_LIMIT; i++) {
+                var knownCountBefore = knownMines.size() + knownSafe.size();
                 inferenceCycle();
+                var knownCountAfter = knownMines.size() + knownSafe.size();
+                if (knownCountAfter == knownCountBefore)
+                    break;
             }
             var modifiedUncovered = board.getUncovered();
             uncovered.addAll(modifiedUncovered);
