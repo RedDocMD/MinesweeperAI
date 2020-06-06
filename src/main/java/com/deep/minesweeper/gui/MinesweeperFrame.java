@@ -16,7 +16,6 @@ public class MinesweeperFrame extends JFrame {
     private final MinesweeperPanel board;
     private final MinesweeperBoardData data;
     private final MinesweeperAI ai;
-    private final SimulationResultDialog resultDialog;
     private final JPanel humanPanel;
     private final JPanel aiPanel;
     private final JPanel buttonPanel;
@@ -37,7 +36,6 @@ public class MinesweeperFrame extends JFrame {
         this.board = new MinesweeperPanel(data, this);
         this.data = data;
         this.ai = new MinesweeperAI(data);
-        this.resultDialog = new SimulationResultDialog(this, false);
         this.humanPanel = new JPanel();
         this.aiPanel = new JPanel();
         this.buttonPanel = new JPanel();

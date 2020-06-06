@@ -41,6 +41,13 @@ public class MinesweeperAI {
         knownSafe.clear();
         uncovered.clear();
         generator.setSeed(System.nanoTime());
+        allCells.clear();
+        for (var i = 0; i < board.getRows(); i++) {
+            for (var j = 0; j < board.getColumns(); j++) {
+                probabilities[i][j] = 0.0;
+                allCells.add(new Position(i, j));
+            }
+        }
     }
 
     public void makeMove() {
@@ -128,9 +135,17 @@ public class MinesweeperAI {
         }
     }
 
+    private void resetProbabilities() {
+        for (var i = 0; i < board.getRows(); i++) {
+            for (var j = 0; j < board.getColumns(); j++) {
+                probabilities[i][j] = 0.0;
+            }
+        }
+    }
+
     private void updateProbabilities() {
+        resetProbabilities();
         for (var cell : knownSafe) {
-            probabilities[cell.getRow()][cell.getColumn()] = 0.0;
             var unsureNeighbours = board.getNeighbours(cell).stream().filter(e -> !knownSafe.contains(e))
                     .collect(Collectors.toSet());
             double probability = 1.0 / (double) unsureNeighbours.size();
@@ -139,7 +154,7 @@ public class MinesweeperAI {
             }
         }
         for (var cell : knownMines) {
-            probabilities[cell.getRow()][cell.getColumn()] = 1.0;
+            probabilities[cell.getRow()][cell.getColumn()] = 100000.0;
         }
     }
 
@@ -167,6 +182,7 @@ public class MinesweeperAI {
     }
 
     private Position getRandomMove() {
+        Logger.getGlobal().info("\n" + probabilityBoardToString());
         var unknownCells = allCells.stream().filter(e -> !knownMines.contains(e) && !uncovered.contains(e))
                 .collect(Collectors.toSet());
         assert (unknownCells.size() > 0);
@@ -184,5 +200,16 @@ public class MinesweeperAI {
         assert (minCells.size() > 0);
         var rand = generator.nextInt(minCells.size());
         return minCells.get(rand);
+    }
+
+    private String probabilityBoardToString() {
+        var out = new StringBuilder();
+        for (var i = 0; i < board.getRows(); i++) {
+            for (var j = 0; j < board.getColumns(); j++) {
+                out.append(String.format("%12.3f", probabilities[i][j])).append(" ");
+            }
+            out.append('\n');
+        }
+        return out.toString();
     }
 }
