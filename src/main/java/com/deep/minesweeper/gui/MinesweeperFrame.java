@@ -65,6 +65,7 @@ public class MinesweeperFrame extends JFrame {
         resetButton.addActionListener(e -> {
             resetGame();
             Logger.getGlobal().info("\n" + data.toString());
+            repaint();
         });
 
         playButton.addActionListener(e -> {

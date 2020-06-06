@@ -40,24 +40,26 @@ public class MinesweeperBoardData {
         return totalMines;
     }
 
-    public Set<Position> getNeighbours(int row, int column) {
-        var neighbours = new HashSet<Position>();
-        final int[] rowAdjustments = {-1, 0, 1};
-        final int[] columnAdjustments = {-1, 0, 1};
+    public Set<Position> getNeighbors(int row, int column) {
+        var neighbors = new HashSet<Position>();
+        final int[] rowAdjustments = { -1, 0, 1 };
+        final int[] columnAdjustments = { -1, 0, 1 };
         for (var rowAdj : rowAdjustments) {
             for (var columnAdj : columnAdjustments) {
-                if (rowAdj == 0 && columnAdj == 0) continue;
+                if (rowAdj == 0 && columnAdj == 0)
+                    continue;
                 var newRow = row + rowAdj;
                 var newColumn = column + columnAdj;
-                if (newRow < 0 || newRow >= rows || newColumn < 0 || newColumn >= columns) continue;
-                neighbours.add(new Position(newRow, newColumn));
+                if (newRow < 0 || newRow >= rows || newColumn < 0 || newColumn >= columns)
+                    continue;
+                neighbors.add(new Position(newRow, newColumn));
             }
         }
-        return neighbours;
+        return neighbors;
     }
 
-    public Set<Position> getNeighbours(Position pos) {
-        return getNeighbours(pos.getRow(), pos.getColumn());
+    public Set<Position> getNeighbors(Position pos) {
+        return getNeighbors(pos.getRow(), pos.getColumn());
     }
 
     private void initializeBoard() {
@@ -69,7 +71,7 @@ public class MinesweeperBoardData {
         }
         final int maxCount = rows * columns;
         var generator = new Random();
-        for (var i = 0; i < totalMines; ) {
+        for (var i = 0; i < totalMines;) {
             var mineIndex = generator.nextInt(maxCount);
             var mineRow = mineIndex / columns;
             var mineColumn = mineIndex % columns;
@@ -77,11 +79,11 @@ public class MinesweeperBoardData {
                 board[mineRow][mineColumn] = Element.COVERED_MINE;
                 mines.add(new Position(mineRow, mineColumn));
                 ++i;
-                var neighbours = getNeighbours(mineRow, mineColumn);
+                var neighbors = getNeighbors(mineRow, mineColumn);
                 counterBoard[mineRow][mineColumn] = MINE_VALUE;
-                for (var neighbour : neighbours) {
-                    if (board[neighbour.getRow()][neighbour.getColumn()] == Element.COVERED_EMPTY) {
-                        counterBoard[neighbour.getRow()][neighbour.getColumn()]++;
+                for (var neighbor : neighbors) {
+                    if (board[neighbor.getRow()][neighbor.getColumn()] == Element.COVERED_EMPTY) {
+                        counterBoard[neighbor.getRow()][neighbor.getColumn()]++;
                     }
                 }
             }
@@ -118,9 +120,12 @@ public class MinesweeperBoardData {
     public void flagCell(int row, int column) {
         if (row < 0 || column < 0 || row >= rows || column >= columns)
             throw new IllegalArgumentException("Invalid position: Position outside board");
-        board[row][column] = Element.FLAGGED;
-        flagged.add(new Position(row, column));
-        if (flagged.equals(mines)) state = GameState.WON;
+        if (board[row][column] == Element.COVERED_EMPTY || board[row][column] == Element.COVERED_MINE) {
+            board[row][column] = Element.FLAGGED;
+            flagged.add(new Position(row, column));
+        }
+        if (flagged.equals(mines))
+            state = GameState.WON;
     }
 
     public void flagCell(Position position) {
@@ -141,6 +146,8 @@ public class MinesweeperBoardData {
         if (board[row][column] == Element.COVERED_EMPTY) {
             board[row][column] = Element.UNCOVERED_EMPTY;
             recursivelyUncover(new Position(row, column), new HashSet<>());
+            if (checkIfOnlyMinesCovered())
+                state = GameState.WON;
         } else if (board[row][column] == Element.COVERED_MINE) {
             uncoverAllMines();
         }
@@ -165,33 +172,38 @@ public class MinesweeperBoardData {
     private void recursivelyUncover(Position pos, Set<Position> done) {
         if (counterBoard[pos.getRow()][pos.getColumn()] == 0 && !done.contains(pos)) {
             done.add(pos);
-            var neighbours = getNeighbours(pos);
-            for (var neighbour : neighbours) {
-                recursivelyUncover(neighbour, done);
+            var neighbors = getNeighbors(pos);
+            for (var neighbor : neighbors) {
+                recursivelyUncover(neighbor, done);
             }
         }
         board[pos.getRow()][pos.getColumn()] = Element.UNCOVERED_EMPTY;
     }
 
-    public void uncoverNeighbours(int row, int column) {
-        var neighbours = getNeighbours(row, column);
-        var mineNeighbours = new HashSet<>(neighbours);
-        mineNeighbours.retainAll(mines);
-        var flaggedNeighbours = new HashSet<>(neighbours);
-        flaggedNeighbours.retainAll(flagged);
-        Logger.getGlobal().info("Flagged neighbours: " + flaggedNeighbours);
-        Logger.getGlobal().info("Mine neighbours: " + mineNeighbours);
-        if (mineNeighbours.equals(flaggedNeighbours)) {
-            var uncoverNeighbours = new HashSet<>(neighbours);
-            uncoverNeighbours.removeAll(flaggedNeighbours);
-            for (var cell : uncoverNeighbours) {
+    private boolean checkIfOnlyMinesCovered() {
+        var uncovered = getUncovered();
+        return uncovered.size() + totalMines == rows * columns;
+    }
+
+    public void uncoverNeighbors(int row, int column) {
+        var neighbors = getNeighbors(row, column);
+        var mineNeighbors = new HashSet<>(neighbors);
+        mineNeighbors.retainAll(mines);
+        var flaggedNeighbors = new HashSet<>(neighbors);
+        flaggedNeighbors.retainAll(flagged);
+        Logger.getGlobal().info("Flagged neighbors: " + flaggedNeighbors);
+        Logger.getGlobal().info("Mine neighbors: " + mineNeighbors);
+        if (mineNeighbors.equals(flaggedNeighbors)) {
+            var uncoverNeighbors = new HashSet<>(neighbors);
+            uncoverNeighbors.removeAll(flaggedNeighbors);
+            for (var cell : uncoverNeighbors) {
                 board[cell.getRow()][cell.getColumn()] = Element.UNCOVERED_EMPTY;
             }
-        } else if (mineNeighbours.isEmpty()) {
-            for (var cell : neighbours) {
+        } else if (mineNeighbors.isEmpty()) {
+            for (var cell : neighbors) {
                 board[cell.getRow()][cell.getColumn()] = Element.UNCOVERED_EMPTY;
             }
-        } else if (!mineNeighbours.containsAll(flaggedNeighbours)) {
+        } else if (!mineNeighbors.containsAll(flaggedNeighbors)) {
             uncoverAllMines();
         }
     }
@@ -200,18 +212,20 @@ public class MinesweeperBoardData {
         var uncovered = new HashSet<Position>();
         for (var i = 0; i < rows; i++) {
             for (var j = 0; j < columns; j++) {
-                if (board[i][j] == Element.UNCOVERED_EMPTY) uncovered.add(new Position(i, j));
+                if (board[i][j] == Element.UNCOVERED_EMPTY)
+                    uncovered.add(new Position(i, j));
             }
         }
         return uncovered;
     }
 
-    public void uncoverNeighbours(Position cell) {
-        uncoverNeighbours(cell.getRow(), cell.getColumn());
+    public void uncoverNeighbors(Position cell) {
+        uncoverNeighbors(cell.getRow(), cell.getColumn());
     }
 
     private void markWronglyFlagged() {
-        if (!isGameEnded()) return;
+        if (!isGameEnded())
+            return;
         for (var i = 0; i < rows; i++) {
             for (var j = 0; j < columns; j++) {
                 if (board[i][j] == Element.FLAGGED && counterBoard[i][j] != -1) {
@@ -229,8 +243,10 @@ public class MinesweeperBoardData {
         var points = 0;
         for (var i = 0; i < rows; i++) {
             for (var j = 0; j < columns; j++) {
-                if (board[i][j] == Element.UNCOVERED_EMPTY) points += UNCOVERED_EMPTY_POINT;
-                else if (board[i][j] == Element.FLAGGED && counterBoard[i][j] == -1) points += FLAGGED_MINE_POINT;
+                if (board[i][j] == Element.UNCOVERED_EMPTY)
+                    points += UNCOVERED_EMPTY_POINT;
+                else if (board[i][j] == Element.FLAGGED && counterBoard[i][j] == -1)
+                    points += FLAGGED_MINE_POINT;
             }
         }
         return points;

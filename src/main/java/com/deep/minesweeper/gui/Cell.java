@@ -77,6 +77,7 @@ public class Cell extends JPanel {
             label.setText("");
             drawMine = false;
             drawFlag = false;
+            drawWrongFlag = false;
         } else {
             setBorder(UNCOVERED_BORDER);
             if (state == MinesweeperBoardData.Element.UNCOVERED_EMPTY) {

@@ -86,11 +86,11 @@ public class MinesweeperAI {
                 .collect(Collectors.toSet());
 
         for (var move : uncoveredThisMove) {
-            var neighbours = board.getNeighbours(move);
-            var safeNeighbours = neighbours.stream().filter(knownSafe::contains).collect(Collectors.toSet());
-            var mineNeighbours = neighbours.stream().filter(knownMines::contains).collect(Collectors.toSet());
+            var neighbors = board.getNeighbors(move);
+            var safeNeighbors = neighbors.stream().filter(knownSafe::contains).collect(Collectors.toSet());
+            var mineNeighbors = neighbors.stream().filter(knownMines::contains).collect(Collectors.toSet());
 
-            var newSentence = new Sentence(neighbours, board.getMineCount(move), safeNeighbours, mineNeighbours);
+            var newSentence = new Sentence(neighbors, board.getMineCount(move), safeNeighbors, mineNeighbors);
             sentences.add(newSentence);
             doSelfInference(newSentence);
         }
@@ -146,10 +146,10 @@ public class MinesweeperAI {
     private void updateProbabilities() {
         resetProbabilities();
         for (var cell : knownSafe) {
-            var unsureNeighbours = board.getNeighbours(cell).stream().filter(e -> !knownSafe.contains(e))
+            var unsureNeighbors = board.getNeighbors(cell).stream().filter(e -> !knownSafe.contains(e))
                     .collect(Collectors.toSet());
-            double probability = 1.0 / (double) unsureNeighbours.size();
-            for (var unsureCell : unsureNeighbours) {
+            double probability = 1.0 / (double) unsureNeighbors.size();
+            for (var unsureCell : unsureNeighbors) {
                 probabilities[unsureCell.getRow()][unsureCell.getColumn()] += probability;
             }
         }

@@ -31,7 +31,6 @@ public class MinesweeperPanel extends JPanel {
     }
 
     private void initComponent() {
-        // TODO: Initialize layout and listeners
         backPanel.setLayout(new GridLayout(rows, columns));
         for (var i = 0; i < rows; i++) {
             for (var j = 0; j < columns; j++) {
@@ -59,7 +58,7 @@ public class MinesweeperPanel extends JPanel {
                             if (!boardData.isGameEnded() && parent.isHumanPlaying()) {
                                 var cell = (Cell) e.getComponent();
                                 Logger.getGlobal().info("Double clicked: " + cell.getPosition());
-                                boardData.uncoverNeighbours(cell.getPosition());
+                                boardData.uncoverNeighbors(cell.getPosition());
                                 recomputeCellsState();
                                 parent.announceGameEnd();
                             } else if (boardData.isGameEnded()) {
