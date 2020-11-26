@@ -8,8 +8,8 @@ com/deep/minesweeper/gui/MinesweeperPanel$1.class
 com/deep/minesweeper/gui/LevelChooserDialog$SelectorState.class
 com/deep/minesweeper/data/MinesweeperBoardData$GameState.class
 com/deep/minesweeper/data/SimulationResult.class
-com/deep/minesweeper/ai/MinesweeperAI.class
 com/deep/minesweeper/ai/Sentence.class
+com/deep/minesweeper/ai/MinesweeperAI.class
 com/deep/minesweeper/Main.class
 com/deep/minesweeper/data/MinesweeperBoardData.class
 com/deep/minesweeper/gui/MinesweeperFrame.class
